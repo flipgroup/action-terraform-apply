@@ -1,0 +1,25 @@
+name: Terraform apply
+
+inputs:
+  version:
+    description: Terraform version.
+    required: true
+  workspace:
+    description: Terraform workspace name.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: ${{ inputs.version }}
+        terraform_wrapper: false
+    - name: Configure environment variables
+      run: |
+        echo "TF_CLI_ARGS_apply=-auto-approve" >>"$GITHUB_ENV"
+        echo "TF_IN_AUTOMATION=true" >>"$GITHUB_ENV"
+        echo "TF_INPUT=false" >>"$GITHUB_ENV"
+        echo "TF_WORKSPACE=${{ inputs.workspace }}" >>"$GITHUB_ENV"
+      shell: bash
