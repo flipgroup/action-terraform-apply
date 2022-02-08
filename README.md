@@ -7,7 +7,7 @@ GitHub Action for setting up a workflow to execute [`terraform apply`](https://w
 ```yaml
 jobs:
   main:
-    name: Deployment
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -15,7 +15,7 @@ jobs:
       - name: Setup Terraform
         uses: flipgroup/action-terraform-apply@main
         with:
-          version: 1.0.0
+          version: 1.1.5
           workspace: prod
 
       # -- as an example --
