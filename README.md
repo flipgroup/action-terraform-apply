@@ -1,6 +1,6 @@
 # Action Terraform apply
 
-GitHub Action for setting up a workflow to execute [`terraform apply`](https://www.terraform.io/docs/cli/commands/apply.html) operations in CI/CD pipelines for a given workspace.
+GitHub Action for setting up a workflow to execute [`terraform apply`](https://developer.hashicorp.com/terraform/cli/commands/apply) operations in CI/CD pipelines for a given workspace.
 
 ## Usage
 
@@ -15,7 +15,7 @@ jobs:
       - name: Setup Terraform
         uses: flipgroup/action-terraform-apply@main
         with:
-          version: 1.1.5
+          version: 1.3.6
           workspace: prod
 
       # -- as an example --
