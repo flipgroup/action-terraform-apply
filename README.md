@@ -15,7 +15,7 @@ jobs:
       - name: Setup Terraform
         uses: flipgroup/action-terraform-apply@main
         with:
-          version: 1.5.7
+          version: 1.7.5
           workspace: prod
 
       # -- as an example --
