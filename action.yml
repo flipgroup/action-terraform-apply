@@ -7,6 +7,12 @@ inputs:
   workspace:
     description: Terraform workspace name.
     required: true
+  ssh-private-key:
+    description: Optional SSH private key, added to ssh-agent.
+    default:
+  github-module-repository:
+    description: Optional GitHub Terraform module repository as owner/name, added as HTTPS -> SSH clone target.
+    default:
 
 runs:
   using: composite
@@ -22,4 +28,21 @@ runs:
         echo "TF_IN_AUTOMATION=true" >>"$GITHUB_ENV"
         echo "TF_INPUT=false" >>"$GITHUB_ENV"
         echo "TF_WORKSPACE=${{ inputs.workspace }}" >>"$GITHUB_ENV"
+      shell: bash
+    - name: Add SSH private key to ssh-agent
+      if: inputs.ssh-private-key != ''
+      env:
+        # note: using env var to avoid masked key output into workflow run log
+        SSH_PRIVATE_KEY: ${{ inputs.ssh-private-key }}
+      run: |
+        eval $(ssh-agent -s)
+        echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >>"$GITHUB_ENV"
+        echo "$SSH_PRIVATE_KEY" | ssh-add -
+      shell: bash
+    - name: Set GitHub Terraform module repository
+      if: inputs.github-module-repository != ''
+      run: |
+        git config --global \
+          url."ssh://git@github.com/${{ inputs.github-module-repository }}".insteadOf \
+          "https://github.com/${{ inputs.github-module-repository }}"
       shell: bash
