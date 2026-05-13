@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Terraform
         uses: flipgroup/action-terraform-apply@main
         with:
-          version: 1.7.5
+          version: 1.12.2
           workspace: prod
 
       # workflow now configured for use with terraform
@@ -39,11 +39,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Terraform
         uses: flipgroup/action-terraform-apply@main
         with:
-          version: 1.7.5
+          version: 1.12.2
           workspace: prod
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           github-module-repository: owner/module-repository
