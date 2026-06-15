@@ -10,15 +10,13 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v6
       - name: Setup Terraform
         uses: flipgroup/action-terraform-apply@main
         with:
           version: 1.12.2
           workspace: prod
 
-      # workflow now configured for use with terraform
+      # workflow now configured for use with Terraform
 
       - name: Terraform apply
         run: |
@@ -27,7 +25,7 @@ jobs:
           terraform apply
 ```
 
-Optionally, the Action can configure the following properties, allowing use of a private GitHub repository as a [Module source](https://developer.hashicorp.com/terraform/language/modules/sources#github) for Terraform configurations:
+Optionally, the Action can configure the following properties, allowing use of a private GitHub repository as a [Module source](https://developer.hashicorp.com/terraform/language/block/module#github-repository) for Terraform configurations:
 
 - Start `ssh-agent` and add a given SSH private key.
 - Configure `git` with a HTTPS -> SSH clone target [`url.<base>.insteadOf`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-urlltbasegtinsteadOf) rewrite.
@@ -38,8 +36,6 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v6
       - name: Setup Terraform
         uses: flipgroup/action-terraform-apply@main
         with:
